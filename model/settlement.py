@@ -49,8 +49,8 @@ class CommissionSettlement(models.Model):
     def _onchange_date_agent(self):
         if self.date_from and self.date_to and self.agent_id:
             payments = self.env['account.payment'].search([
-                ('payment_date', '>=', self.date_from),
-                ('payment_date', '<=', self.date_to),
+                ('date', '>=', self.date_from),
+                ('date', '<=', self.date_to),
                 ('state', '=', 'posted'),
                 ('partner_id', '=', self.agent_id.partner_id.id),
             ])
