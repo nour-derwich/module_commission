@@ -48,20 +48,17 @@ class CommissionSettlement(models.Model):
     @api.onchange('date_from', 'date_to', 'agent_id')
     def _onchange_date_agent(self):
         if self.date_from and self.date_to and self.agent_id:
-            _logger.info(f"Date From: {self.date_from}, Date To: {self.date_to}, Agent ID: {self.agent_id}")
-            agent_partner_id = self.agent_id.partner_id.id
-            _logger.info(f"Agent's Partner ID: {agent_partner_id}")
             payments = self.env['account.payment'].search([
-                ('date', '>=', self.date_from),
-                ('date', '<=', self.date_to),
-                ('state', '=', 'posted'),  # Consider only posted payments
-                ('partner_id', '=',  self.agent_id.partner_id.id),
+                ('payment_date', '>=', self.date_from),
+                ('payment_date', '<=', self.date_to),
+                ('state', '=', 'posted'),
+                ('partner_id', '=', self.agent_id.partner_id.id),
             ])
 
             # Debug logging
             _logger.info(f"Payments found: {payments}")
 
-            lines = [(5, 0, 0)]  # Remove existing lines
+            lines = [(5, 0, 0)]  # Clear all existing lines
             for payment in payments:
                 _logger.info(
                     f"Adding payment: {payment.id}, amount: {payment.amount}, currency: {payment.currency_id.id}")
@@ -69,8 +66,7 @@ class CommissionSettlement(models.Model):
                     'payment_id': payment.id,
                     'montant': payment.amount,
                     'currency_id': payment.currency_id.id,
-                })
-
+                }))
             self.line_ids = lines
 
 
