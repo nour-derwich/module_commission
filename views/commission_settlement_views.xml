@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <!-- Commission Settlement Form View -->
+        <record id="view_commission_settlement_form" model="ir.ui.view">
+            <field name="name">commission.settlement.form</field>
+            <field name="model">commission.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Commission Settlement">
+                    <sheet>
+                        <group>
+                            <field name="state"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="agent_id"/>
+                            <field name="calcul_metho_id"/>
+                            <field name="currency_id"/>
+                            <field name="montant_paiements" readonly="1"/>
+                            <field name="montant_commission" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Settlement Lines">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="montant"/>
+                                        <field name="currency_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Commission Settlement Tree View -->
+        <record id="view_commission_settlement_tree" model="ir.ui.view">
+            <field name="name">commission.settlement.tree</field>
+            <field name="model">commission.settlement</field>
+            <field name="arch" type="xml">
+                <tree string="Commission Settlements">
+                    <field name="state"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="agent_id"/>
+                    <field name="calcul_metho_id"/>
+                    <field name="montant_paiements"/>
+                    <field name="montant_commission"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_commission_settlement" model="ir.actions.act_window">
+            <field name="name">Commission Settlements</field>
+            <field name="res_model">commission.settlement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_commission_settlement" name="Commission Settlements"
+                  parent="sale.sale_menu_root" action="action_commission_settlement"/>
+    </data>
+</odoo>

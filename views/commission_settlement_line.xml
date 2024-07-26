@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- Settlement Line Form View -->
+        <record id="view_commission_settlement_line_form" model="ir.ui.view">
+            <field name="name">commission.settlement.line.form</field>
+            <field name="model">commission.settlement.line</field>
+            <field name="arch" type="xml">
+                <form string="Settlement Line">
+                    <sheet>
+                        <group>
+                            <field name="settlement_id"/>
+                            <field name="montant"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Settlement Line Tree View -->
+        <record id="view_commission_settlement_line_tree" model="ir.ui.view">
+            <field name="name">commission.settlement.line.tree</field>
+            <field name="model">commission.settlement.line</field>
+            <field name="arch" type="xml">
+                <tree string="Settlement Lines">
+                    <field name="settlement_id"/>
+                    <field name="montant"/>
+                    <field name="currency_id"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

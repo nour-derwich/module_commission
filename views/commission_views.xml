@@ -1,0 +1,113 @@
+<odoo>
+    <!-- Form view for the commission method model -->
+    <record id="view_commission_method_form" model="ir.ui.view">
+        <field name="name">commission.form</field>
+        <field name="model">commission</field>
+        <field name="arch" type="xml">
+            <form string="Commission Method">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="montant_fixe"/>
+                        <field name="taux_variable"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree view for the commission method model -->
+    <record id="view_commission_method_tree" model="ir.ui.view">
+        <field name="name">commission.tree</field>
+        <field name="model">commission</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Method">
+                <field name="name"/>
+                <field name="montant_fixe"/>
+                <field name="taux_variable"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for the commission settlement model -->
+<!-- Form view for the commission settlement model -->
+<record id="view_commission_settlement_form" model="ir.ui.view">
+    <field name="name">commission.settlement.form</field>
+    <field name="model">commission.settlement</field>
+    <field name="arch" type="xml">
+        <form string="Commission Settlement">
+            <sheet>
+                <group>
+                    <field name="state"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="agent_id"/>
+                    <field name="calcul_method_id"/>
+                    <field name="currency_id"/>
+                    <field name="montant_paiements" readonly="1"/>
+                    <field name="montant_commission" readonly="1"/>
+                </group>
+                <notebook>
+                    <page string="Lignes des paiements">
+                        <group string="Liste des paiements">
+                            <field name="line_ids" readonly="1">
+                                <tree>
+                                    <field name="payment_id" readonly="1"/>
+                                    <field name="montant" readonly="1"/>
+                                    <field name="currency_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+
+
+    <!-- Tree view for the commission settlement model -->
+    <record id="view_commission_settlement_tree" model="ir.ui.view">
+        <field name="name">commission.settlement.tree</field>
+        <field name="model">commission.settlement</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Settlement">
+
+                <field name="agent_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="calcul_method_id"/>
+                <field name="montant_paiements"/>
+                <field name="montant_commission"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action to open the tree view of commission settlement model -->
+    <record id="action_commission_settlement" model="ir.actions.act_window">
+        <field name="name">Commission Settlements</field>
+        <field name="res_model">commission.settlement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_commission_settlement_tree"/>
+    </record>
+
+    <!-- Action to open the tree view of commission method model -->
+    <record id="action_commission_method" model="ir.actions.act_window">
+        <field name="name">Commission Method</field>
+        <field name="res_model">commission</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_commission_method_tree"/>
+        <field name="help" type="html">
+            <p>This is a description of the commission methods.</p>
+        </field>
+    </record>
+
+    <!-- Menu item for the commission method and settlement models under Sales -->
+    <menuitem id="menu_commission_root" name="Commissions" parent="sale.sale_menu_root"/>
+    <menuitem id="menu_commission_method" name="Methods" parent="menu_commission_root"
+              action="action_commission_method"/>
+    <menuitem id="menu_commission_settlement" name="Settlements" parent="menu_commission_root"
+              action="action_commission_settlement"/>
+</odoo>
